@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sonarena — 音に、居場所と広がりを。</title>
+  <meta name="description" content="sonarena は、音を「左右」だけでなく「前後・距離・広がり」まで自由に配置して、立体的な音響を作れるデスクトップアプリです。個人開発・空間音響アプリ。" />
+
+  <!-- favicon -->
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+
+  <!-- OGP（SNSでURLを貼ったときの表示）。ogp.png を置けば差し替わる -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="sonarena — 音に、居場所と広がりを。" />
+  <meta property="og:description" content="音を置いて・広げて・動かす。ヘッドホンで立体的に聴ける空間音響アプリ。" />
+  <meta property="og:image" content="assets/ogp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@sonarena_app" />
+
+  <!-- Tailwind（CDN版・ビルド不要） -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:    '#0A0F18',
+            navy2:   '#111827',
+            offwhite:'#F4F7FC',
+            accent:  '#F59E0B',
+            srcGreen:'#34D399',
+            srcBlue: '#38BDF8',
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- 日本語Webフォント -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    /* 背景の同心円グロー */
+    .radial-glow {
+      background:
+        radial-gradient(circle at 80% 30%, rgba(245,158,11,0.10), transparent 40%),
+        radial-gradient(circle at 15% 70%, rgba(56,189,248,0.08), transparent 45%);
+    }
+    /* YouTube埋め込みの16:9レスポンシブ枠 */
+    .video-frame { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 0.75rem; }
+    .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  </style>
+</head>
+
+<body class="bg-navy text-offwhite font-sans antialiased">
+
+  <!-- ===== ヘッダー ===== -->
+  <header class="sticky top-0 z-30 bg-navy/80 backdrop-blur border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <img src="assets/logo.svg" alt="sonarena" class="h-7 w-auto" />
+      <a href="https://x.com/sonarena_app" target="_blank" rel="noopener"
+         class="text-sm font-medium px-4 py-2 rounded-full border border-white/15 hover:border-accent hover:text-accent transition">
+        最新情報はXで
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== ヒーロー（中央上下積み） ===== -->
+  <section class="radial-glow">
+    <div class="max-w-5xl mx-auto px-6 pt-20 md:pt-28 pb-16 text-center">
+      <p class="text-sm tracking-widest text-offwhite/50 mb-6">個人開発・空間音響ツール</p>
+
+      <h1 class="font-black tracking-wide mb-8 text-4xl sm:text-5xl md:text-6xl leading-[1.5]">
+        <span class="inline md:hidden">音に、<br />居場所と広がりを。</span>
+        <span class="hidden md:inline">音に、居場所と広がりを。</span>
+      </h1>
+
+      <p class="text-lg md:text-2xl text-offwhite/80 leading-relaxed mb-2">
+        音源を置いて、広げて、動かす。
+      </p>
+      <p class="text-base md:text-lg text-offwhite/60 mb-10">
+        音楽・ASMR・環境音・実況などに。
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mb-3">
+        <a href="https://x.com/sonarena_app" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 bg-accent text-navy font-bold px-8 py-4 rounded-full hover:brightness-110 transition">
+          最新情報はXで
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/>
+          </svg>
+        </a>
+      </div>
+      <p class="text-sm text-offwhite/50">デスクトップアプリ版 / DAWプラグイン版</p>
+    </div>
+  </section>
+
+  <!-- ===== これは何？（左テキスト＋右円形ビュー） ===== -->
+  <section class="border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+      <!-- 左：説明 -->
+      <div>
+        <h2 class="text-2xl md:text-3xl font-bold mb-6 leading-snug">音を「どこから聞こえるか」までデザインする</h2>
+        <p class="text-lg text-offwhite/75 leading-loose">
+          sonarena は、音を「左右」だけでなく
+          <span class="text-offwhite font-medium">前後・距離・広がり</span>
+          まで自由に配置して、立体的な音響を作れる空間音響ツールです。
+          画面の上に音を置くだけで位置が決まり、時間に沿って動かすこともできます。
+          作った音はそのまま書き出せるので、動画や作品に使えます。
+        </p>
+        <p class="mt-6 text-sm text-offwhite/45">
+          単体で使える<span class="text-offwhite/70">デスクトップアプリ版</span>と、お使いのDAWに挿せる<span class="text-offwhite/70">プラグイン版</span>があります。
+        </p>
+      </div>
+
+      <!-- 右：定位サークルのビジュアル -->
+      <div class="relative">
+        <div class="absolute -inset-6 bg-accent/5 blur-3xl rounded-full"></div>
+        <img src="assets/screenshot-detail.png" alt="音を空間に配置する定位ビュー"
+             class="relative w-full rounded-2xl ring-1 ring-white/10 shadow-2xl" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2つの使い方（スクショ） ===== -->
+  <section class="border-t border-white/5 bg-navy2/40">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-3">アプリ版 — 録って配置も、流しながら配置も</h2>
+      <p class="text-center text-offwhite/55 mb-14 text-sm">単体アプリには、使う音に合わせて2つのモードがあります。</p>
+
+      <div class="grid md:grid-cols-2 gap-10">
+        <div>
+          <p class="text-srcGreen font-semibold mb-3">▸ studioモード：用意した音を配置・再生</p>
+          <img src="assets/screenshot-studio.png" alt="studioモードの画面"
+               class="rounded-xl ring-1 ring-white/10 shadow-xl" />
+        </div>
+        <div>
+          <p class="text-srcBlue font-semibold mb-3">▸ liveモード：音を取り込みながら配置・受聴</p>
+          <img src="assets/screenshot-live.png" alt="liveモードの画面"
+               class="rounded-xl ring-1 ring-white/10 shadow-xl" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== プラグイン版 ===== -->
+  <section class="border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-3">プラグイン版 — DAWのトラックに挿して</h2>
+      <p class="text-center text-offwhite/55 mb-14 text-sm">CLAP / VST3 に対応。お使いのDAWの中で、そのまま空間配置できます。</p>
+
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <img src="assets/screenshot-plugin.png" alt="DAWに挿したsonarenaプラグインの画面"
+             class="rounded-xl ring-1 ring-white/10 shadow-xl" />
+        <ul class="space-y-4 text-offwhite/80">
+          <li class="flex gap-3"><span class="text-accent">▸</span>トラックの音を、空間の好きな位置に</li>
+          <li class="flex gap-3"><span class="text-accent">▸</span>角度・距離・広がりを調整</li>
+          <li class="flex gap-3"><span class="text-accent">▸</span>動きはDAWのオートメーションで付けられる</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 機能（厳選6個） ===== -->
+  <section class="border-t border-white/5 bg-navy2/40">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-14">できること</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 1 置く -->
+        <div class="bg-white/5 rounded-2xl p-7 ring-1 ring-white/5">
+          <div class="w-11 h-11 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="11" r="3"/><path stroke-linecap="round" d="M12 2v3m0 12v5M2 11h3m12 0h5"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">音を、好きな位置に置く</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">画面に音を置くだけで、左右・前後・距離が決まります。</p>
+        </div>
+
+        <!-- 2 動かす -->
+        <div class="bg-white/5 rounded-2xl p-7 ring-1 ring-white/5">
+          <div class="w-11 h-11 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 1 1 2.3 5.6M4 12V7m0 5h5"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">時間に沿って動かす</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">「この時間にこの位置」を記録すれば、音が動く・回る・通り過ぎる。</p>
+        </div>
+
+        <!-- 3 広がり -->
+        <div class="bg-white/5 rounded-2xl p-7 ring-1 ring-white/5">
+          <div class="w-11 h-11 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v10M7 9v6m10-6v6M3 11v2m18-2v2"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">広がりを調整する</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">一点から鳴らすか、空間に広げるか。音の広がり方を変えられます。</p>
+        </div>
+
+        <!-- 4 立体で聴く -->
+        <div class="bg-white/5 rounded-2xl p-7 ring-1 ring-white/5">
+          <div class="w-11 h-11 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 13v-1a8 8 0 0 1 16 0v1m0 0v4a2 2 0 0 1-2 2h-1v-6h3M4 13v4a2 2 0 0 0 2 2h1v-6H4Z"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">ヘッドホンで立体的に聴く</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">置いた通りに、前後や距離まで感じられます。</p>
+        </div>
+
+        <!-- 5 書き出す -->
+        <div class="bg-white/5 rounded-2xl p-7 ring-1 ring-white/5">
+          <div class="w-11 h-11 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">音声ファイルに書き出す</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">作った空間音響を書き出して、動画や作品にそのまま使えます。</p>
+        </div>
+
+        <!-- 6 複数音 -->
+        <div class="bg-white/5 rounded-2xl p-7 ring-1 ring-white/5">
+          <div class="w-11 h-11 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.5"/><circle cx="16" cy="9" r="2.5"/><circle cx="12" cy="16" r="2.5"/></svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2">複数の音を同時に扱う</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">いくつもの音をそれぞれ別の位置に置いて、ひとつの空間にまとめられます。</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== デモ動画 ===== -->
+  <section class="border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-3">動く・聴ける デモ</h2>
+      <p class="text-center text-offwhite/55 mb-14 text-sm">ヘッドホンでの視聴を推奨します。</p>
+
+      <div class="grid md:grid-cols-2 gap-10">
+        <!-- demo1 -->
+        <div>
+          <div class="video-frame ring-1 ring-white/10">
+            <iframe src="https://www.youtube-nocookie.com/embed/H8qq-LqmEGA?rel=0" title="複数の音を移動させるデモ"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen loading="lazy"></iframe>
+          </div>
+          <p class="mt-3 text-sm text-offwhite/70">複数の音を空間内で移動させる</p>
+        </div>
+
+        <!-- demo2 -->
+        <div>
+          <div class="video-frame ring-1 ring-white/10">
+            <iframe src="https://www.youtube-nocookie.com/embed/silEsQWKRqs?rel=0" title="単一音の広がり変化デモ"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen loading="lazy"></iframe>
+          </div>
+          <p class="mt-3 text-sm text-offwhite/70">音の広がりを変化させる</p>
+        </div>
+
+        <!-- demo3 -->
+        <div class="md:col-span-2 md:max-w-2xl md:mx-auto w-full text-center">
+          <p class="text-sm text-offwhite/70">4ch FOAで書き出した音声と映像を合成したデモは、YouTubeで確認できます。</p>
+          <p class="mt-1 text-xs text-offwhite/45">画面ドラッグや端末の向き変更で、視点と音の方向変化をお試しください。</p>
+          <a class="inline-block mt-3 text-sm font-semibold text-accent hover:text-accent2 transition"
+             href="https://www.youtube.com/watch?v=uTFzLHttosQ"
+             target="_blank"
+             rel="noopener noreferrer">YouTubeで動画を開く</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 対応環境 ===== -->
+  <section class="border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-10">対応環境</h2>
+      <div class="grid sm:grid-cols-3 gap-6 text-left">
+        <div class="bg-white/5 rounded-xl p-6 ring-1 ring-white/5">
+          <h3 class="font-bold mb-2">対応OS</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">Windows / macOS / Linux</p>
+        </div>
+        <div class="bg-white/5 rounded-xl p-6 ring-1 ring-white/5">
+          <h3 class="font-bold mb-2">形態</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">デスクトップアプリ版<br />DAWプラグイン版（CLAP / VST3）</p>
+        </div>
+        <div class="bg-white/5 rounded-xl p-6 ring-1 ring-white/5">
+          <h3 class="font-bold mb-2">推奨</h3>
+          <p class="text-sm text-offwhite/65 leading-relaxed">ヘッドホンでの視聴</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== クロージング ===== -->
+  <section class="border-t border-white/5 radial-glow">
+    <div class="max-w-3xl mx-auto px-6 py-24 text-center">
+      <img src="assets/symbol.svg" alt="" class="h-12 w-auto mx-auto mb-8 opacity-90" />
+      <h2 class="text-3xl md:text-4xl font-black leading-[1.7] tracking-wide mb-6">音に、居場所と広がりを。</h2>
+      <p class="text-offwhite/70 mb-10">開発状況や新しいデモは X で発信しています。</p>
+      <a href="https://x.com/sonarena_app" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 bg-accent text-navy font-bold px-8 py-4 rounded-full hover:brightness-110 transition">
+        最新情報はXで
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== フッター ===== -->
+  <footer class="border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <img src="assets/logo.svg" alt="sonarena" class="h-6 w-auto opacity-80" />
+      <p class="text-xs text-offwhite/40">© sonarena — 個人開発・空間音響アプリ</p>
+    </div>
+  </footer>
+
+</body>
+</html>
