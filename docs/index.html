@@ -91,15 +91,19 @@
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 items-center justify-center mb-3">
-        <a href="https://x.com/sonarena_app" target="_blank" rel="noopener"
+        <a href="https://github.com/sonarena/sonarena-releases" target="_blank" rel="noopener noreferrer"
            class="inline-flex items-center gap-2 bg-accent text-navy font-bold px-8 py-4 rounded-full hover:brightness-110 transition">
+          ダウンロード・リリースノート
+        </a>
+        <a href="https://x.com/sonarena_app" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 border border-white/20 text-offwhite font-bold px-8 py-4 rounded-full hover:border-accent hover:text-accent transition">
           最新情報はXで
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/>
           </svg>
         </a>
       </div>
-      <p class="text-sm text-offwhite/50">デスクトップアプリ版 / DAWプラグイン版</p>
+      <p class="text-sm text-offwhite/50">Windows / Linux版を公開中 — デスクトップアプリ版 / DAWプラグイン版<br />macOS版はテスト中・協力者募集中</p>
     </div>
   </section>
 
@@ -155,7 +159,7 @@
   <section class="border-t border-white/5">
     <div class="max-w-6xl mx-auto px-6 py-20">
       <h2 class="text-2xl md:text-3xl font-bold text-center mb-3">プラグイン版 — DAWのトラックに挿して</h2>
-      <p class="text-center text-offwhite/55 mb-14 text-sm">CLAP / VST3 に対応。お使いのDAWの中で、そのまま空間配置できます。</p>
+      <p class="text-center text-offwhite/55 mb-14 text-sm">CLAP / VST3 に対応し、お使いのDAWの中でそのまま空間配置できます。Windows / Linux版を公開中、macOS版は公開に向けてテスト中です。</p>
 
       <div class="grid md:grid-cols-2 gap-10 items-center">
         <img src="assets/screenshot-plugin.png" alt="DAWに挿したsonarenaプラグインの画面"
@@ -262,7 +266,7 @@
           <p class="mt-3 text-sm text-offwhite/70">音の広がりを変化させる</p>
         </div>
 
-        <!-- demo3 -->
+        <!-- 4ch FOA demo -->
         <div class="md:col-span-2 md:max-w-2xl md:mx-auto w-full text-center">
           <p class="text-sm text-offwhite/70">4ch FOAで書き出した音声と映像を合成したデモは、YouTubeで確認できます。</p>
           <p class="mt-1 text-xs text-offwhite/45">画面ドラッグや端末の向き変更で、視点と音の方向変化をお試しください。</p>
@@ -282,7 +286,7 @@
       <div class="grid sm:grid-cols-3 gap-6 text-left">
         <div class="bg-white/5 rounded-xl p-6 ring-1 ring-white/5">
           <h3 class="font-bold mb-2">対応OS</h3>
-          <p class="text-sm text-offwhite/65 leading-relaxed">Windows / macOS / Linux</p>
+          <p class="text-sm text-offwhite/65 leading-relaxed">Windows / Linux版を公開中<br />macOS版は公開に向けてテスト中</p>
         </div>
         <div class="bg-white/5 rounded-xl p-6 ring-1 ring-white/5">
           <h3 class="font-bold mb-2">形態</h3>
@@ -296,12 +300,28 @@
     </div>
   </section>
 
+  <!-- ===== テスター募集 ===== -->
+  <section class="border-t border-white/5 bg-navy2/40">
+    <div class="max-w-3xl mx-auto px-6 py-16 text-center">
+      <h2 class="text-2xl font-bold mb-4">macOS版のテスター募集</h2>
+      <p class="text-sm text-offwhite/65 leading-relaxed mb-6">macOS版も公開を目指して開発・テストを続けています。テストに協力いただける方はXまたはメールでご連絡ください。メールの場合は件名に「mac希望」とご記入ください。</p>
+      <a href="mailto:sonarena.app@gmail.com?subject=mac%E5%B8%8C%E6%9C%9B" class="text-accent hover:underline">sonarena.app@gmail.com</a>
+      <span class="text-offwhite/40 mx-2">/</span>
+      <a href="https://x.com/sonarena_app" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">X @sonarena_app</a>
+    </div>
+  </section>
+
   <!-- ===== クロージング ===== -->
   <section class="border-t border-white/5 radial-glow">
     <div class="max-w-3xl mx-auto px-6 py-24 text-center">
       <img src="assets/symbol.svg" alt="" class="h-12 w-auto mx-auto mb-8 opacity-90" />
       <h2 class="text-3xl md:text-4xl font-black leading-[1.7] tracking-wide mb-6">音に、居場所と広がりを。</h2>
-      <p class="text-offwhite/70 mb-10">開発状況や新しいデモは X で発信しています。</p>
+      <p class="text-offwhite/70 mb-6">配布ファイルとリリースノートはリポジトリからご確認ください。</p>
+      <a href="https://github.com/sonarena/sonarena-releases" target="_blank" rel="noopener noreferrer"
+         class="inline-block bg-accent text-navy font-bold px-8 py-4 rounded-full hover:brightness-110 transition mb-5">
+        ダウンロード・リリースノート
+      </a>
+      <p class="text-sm text-offwhite/50 mb-8">開発状況や新しいデモは X で発信しています。</p>
       <a href="https://x.com/sonarena_app" target="_blank" rel="noopener"
          class="inline-flex items-center gap-2 bg-accent text-navy font-bold px-8 py-4 rounded-full hover:brightness-110 transition">
         最新情報はXで
